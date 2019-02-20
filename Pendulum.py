@@ -8,3 +8,5 @@ a = w/r
 
 fnet= mv^2/r
 fnet = t-mg
+mv^2/r = t-mg
+v^2/r = t/m -
