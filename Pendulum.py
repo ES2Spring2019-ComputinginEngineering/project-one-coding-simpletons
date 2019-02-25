@@ -1,6 +1,7 @@
 #Ben Pradko and Rónán Gissler
-from math import *
+import math as m
 import numpy as np
+import matplotlib.pyplot as plt
 '''
 L = 1
 m = 1
@@ -18,34 +19,40 @@ def print_system(time,position,velocity):
     print("TIME:     ", time)
     print("POSITION: ", position)
     print("VELOCITY: ", velocity, "\n")
-
 #initial conditions:
-position = [pi/4]
+position = [(m.pi)/4]
 velocity = [0]
-acceleration = [0]
+acceleration = []
 
 time = np.linspace(0, 10, 10001)
 print(len(time))
 
-i = 1
-while i < len(time):
+i = 0
+while i < (len(time)-1):
+    #print_system(time[i],position[i],velocity[i])
+    if (len(time)%20 == 1):
+        acceleration.extend([4,3,2,1,0,0-1,-2,-3,-4,-4,-3,-2,-1,0,1,2,3,4])
     positionf, velocityf = system_update(acceleration[i],position[i-1],velocity[i-1],time[i-1],time[i])
     position.append(positionf)
     velocity.append(velocityf)
-    #print_system(time[i],position[i],velocity[i])
-    count = 0
-    if((acceleration[len(acceleration)-1] == 0) and count%2 == 0):
-        acceleration.append(i%5)
-        count += 1
-    elif(acceleration[len(acceleration)-1] == 5):
-        acceleration.append(5-(i%5))
-    elif((acceleration[len(acceleration)-1] == 0) and count%2 == 1):
-        acceleration.append(-(i%5))
-        count += 1
-    elif(acceleration[len(acceleration)-1] == -5):
-        acceleration.append(-5+(i%5))
-    print(time[i],position[i])
     i += 1
+    
+plt.plot(time, position, color = 'magenta')
+plt.title('Position as a function of time', fontsize = 14)
+plt.xlabel('time', fontsize = 12)
+plt.ylabel('position', fontsize = 12)
+plt.show()
 
+plt.plot(time, velocity, color = 'cyan')
+plt.title('Velocity as a function of time', fontsize = 14)
+plt.xlabel('time', fontsize = 12)
+plt.ylabel('velocity', fontsize = 12)
+plt.show()
+
+plt.plot(time, acceleration, color = 'yellow')
+plt.title('Acceleration as a function of time', fontsize = 14)
+plt.xlabel('time', fontsize = 12)
+plt.ylabel('acceleration', fontsize = 12)
+plt.show()
 #putting on our Big boy pants
 
