@@ -2,56 +2,62 @@
 import math as m
 import numpy as np
 import matplotlib.pyplot as plt
-'''
-L = 1
-m = 1
-g = 9.81
-I = (1/3)*m*(L**2)
-T = L*(mg)*sin(position)
-'''
-def system_update(acceleration, position, velocity, t1, t2):
-    dt = t2 - t1
-    positionf = position + (velocity * dt)
-    velocityf = velocity + (acceleration * dt)
-    return positionf, velocityf
 
-def print_system(time,position,velocity):
-    print("TIME:     ", time)
-    print("POSITION: ", position)
-    print("VELOCITY: ", velocity, "\n")
+L = 1
+g = 9.81
+w = m.sqrt(g/L)
+
+def angular_displacement(time, initial_position, angular_velocity):
+    return initial_position * m.cos(angular_velocity * time)
+
+def angular_velocity(time, initial_position, angular_velocity):
+    return -w * initial_position * m.sin(angular_velocity * time)
+    
+def angular_acceleration(time, initial_position, angular_velocity):
+    return -(w**2) * initial_position * m.cos(angular_velocity * time)
+
 #initial conditions:
 position = [(m.pi)/4]
 velocity = [0]
 acceleration = []
 
-time = np.linspace(0, 10, 101)
-acceleration_repeat = [4,3,2,1,0,-1,-2,-3,-4,-3,-2,-1,0,1,2,3]
-acceleration = acceleration_repeat*6 + [4,3,2,1] 
-print(acceleration)
-i = 1
-while i < (len(time)-1):
-    positionf = system_update(acceleration[i-1],position[i-1],velocity[i-1],time[i-1],time[i])[0]
-    velocityf = system_update(acceleration[i-1],position[i-1],velocity[i-1],time[i-1],time[i])[1]
-    position.append(positionf)
-    velocity.append(velocityf)
-    #print_system(time[i], position[i], velocity[i])
-    i += 1
-print(count)
-plt.plot(time[1:], position, color = 'magenta')
+time = np.linspace(0, 10, 100)
+
+x = time
+y1 = []
+y2 = []
+y3 = []
+for t in x:
+    y1.append(angular_displacement(t, position[0], w))
+    y2.append(angular_velocity(t, position[0], w))
+    y3.append(angular_acceleration(t, position[0], w))
+    
+plt.plot(x, y1, color = 'magenta')
 plt.title('Position as a function of time', fontsize = 14)
 plt.xlabel('time', fontsize = 12)
 plt.ylabel('position', fontsize = 12)
+plt.grid()
 plt.show()
 
-plt.plot(time[1:], velocity, color = 'cyan')
+plt.plot(x, y2, color = 'cyan')
 plt.title('Velocity as a function of time', fontsize = 14)
 plt.xlabel('time', fontsize = 12)
 plt.ylabel('velocity', fontsize = 12)
+plt.grid()
 plt.show()
 
-plt.plot(time[1:], acceleration, color = 'orange')
+plt.plot(x, y3, color = 'orange')
 plt.title('Acceleration as a function of time', fontsize = 14)
 plt.xlabel('time', fontsize = 12)
 plt.ylabel('acceleration', fontsize = 12)
+plt.grid()
 plt.show()
 
+plt.plot(x, y1, color = 'magenta', label = 'position')
+plt.plot(x, y2, color = 'cyan', label = 'velocity')
+plt.plot(x, y3, color = 'orange', label = 'acceleration')
+plt.title('All together!')
+plt.xlabel('time', fontsize = 12)
+plt.legend(loc = 2, fontsize = 12)
+plt.grid()
+plt.show()
