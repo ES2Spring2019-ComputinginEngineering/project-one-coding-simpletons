@@ -1,5 +1,5 @@
-#Ben Pradko and Ronan Gissler
-#This code is for collecting the acceleration data of the motion
+# Ben Pradko and Ronan Gissler
+# This code is for collecting the acceleration data of the motion
 
 import math
 import microbit
@@ -19,4 +19,3 @@ while (count < 1000):
     microbit.sleep(10)
     count += 1
 fout.close()
-
