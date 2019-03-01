@@ -3,7 +3,7 @@ import math as m
 import numpy as np
 import matplotlib.pyplot as plt
 
-L = 1
+L = 0.3
 g = 9.81
 w = m.sqrt(g/L)
 
@@ -21,7 +21,7 @@ position = [(m.pi)/4]
 velocity = [0]
 acceleration = []
 
-time = np.linspace(0, 10, 100)
+time = np.linspace(0, 10, 1000)
 
 x = time
 y1 = []
@@ -61,3 +61,41 @@ plt.xlabel('time', fontsize = 12)
 plt.legend(loc = 2, fontsize = 12)
 plt.grid()
 plt.show()
+
+#Data collection
+fin = open('data_collection.txt')
+dataList = []
+for angle in fin:
+    dataList.append(float(angle.strip()))
+fin.close()
+    
+plt.plot(x, dataList, color = 'green')
+plt.title('Position as a function of time', fontsize = 14)
+plt.xlabel('time', fontsize = 12)
+plt.ylabel('position', fontsize = 12)
+plt.grid()
+plt.show()
+'''
+plt.plot(x, y5, color = 'red')
+plt.title('Velocity as a function of time', fontsize = 14)
+plt.xlabel('time', fontsize = 12)
+plt.ylabel('velocity', fontsize = 12)
+plt.grid()
+plt.show()
+
+plt.plot(x, y6, color = 'blue')
+plt.title('Acceleration as a function of time', fontsize = 14)
+plt.xlabel('time', fontsize = 12)
+plt.ylabel('acceleration', fontsize = 12)
+plt.grid()
+plt.show()
+
+plt.plot(x, y4, color = 'green', label = 'position')
+plt.plot(x, y5, color = 'red', label = 'velocity')
+plt.plot(x, y6, color = 'blue', label = 'acceleration')
+plt.title('All together!')
+plt.xlabel('time', fontsize = 12)
+plt.legend(loc = 2, fontsize = 12)
+plt.grid()
+plt.show()
+'''
