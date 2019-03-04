@@ -15,7 +15,8 @@ while (count < 1000):
     x = microbit.accelerometer.get_x()
     y = microbit.accelerometer.get_y()
     angle = tilt(x, y)
-    fout.write(str(angle) + '\n')
+    time = count * 10
+    fout.write(str(angle) + ',' + str(count) + '\n')
     microbit.sleep(10)
     count += 1
 fout.close()
