@@ -1,22 +1,28 @@
+# Data collection
 # Ben Pradko and Ronan Gissler
-# This code is for collecting the acceleration data of the motion
+import math as m
+from microbit import *
 
-import math
-import microbit
-
+def tilt(xAcc, yAcc):
+    xdegrees = m.atan2(xAcc, yAcc)
+    return xdegrees
+fileName = 'data_collection.txt'
+fout = open(fileName, 'w')
 count = 0
-
-def tilt(x, y):
-    angle = math.atan2(y, x)
-    return angle
-
-fout = open('data_collection.txt', 'w')
-while (count < 1000):
-    x = microbit.accelerometer.get_x()
-    y = microbit.accelerometer.get_y()
-    angle = tilt(x, y)
-    time = count * 10
-    fout.write(str(angle) + ',' + str(count) + '\n')
-    microbit.sleep(10)
+switch = 0
+while(count < 1000):
     count += 1
+    x = accelerometer.get_x()
+    y = accelerometer.get_y()
+    angle = tilt(x, y)
+    time = count*10
+    fout.write(str(angle) + '\n' + str(time) + '\n')
+    sleep(10)
+    if((count % 100 == 0) and (switch == 0)):
+        display.show(Image.TRIANGLE)
+        switch = 1
+    elif((count % 100 == 0) and (switch == 1)):
+        display.show(Image.SQUARE)
+        switch = 0
+display.show(Image.HEART)
 fout.close()
