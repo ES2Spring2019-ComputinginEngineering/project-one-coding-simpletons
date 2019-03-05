@@ -2,6 +2,7 @@
 import math as m
 import numpy as np
 import matplotlib.pyplot as plt
+import scipy.signal as spicy
 
 L = 0.3
 g = 9.81
@@ -21,7 +22,7 @@ def calcVelocity(final_position, initial_position, final_time, initial_time):
 
 def calcAcceleration(final_velocity, initial_velocity, final_time, initial_time):
     return (final_velocity - initial_velocity)/(final_time - initial_time)
-
+    
 #initial conditions:
 position = [(m.pi)/4]
 velocity = [0]
@@ -69,7 +70,7 @@ plt.grid()
 plt.show()
 
 #Data collection
-fin = open('data_collection460.txt')
+fin = open('data_collection141.txt')
 dataList = []
 for line in fin:
     dataList.append(line.split('\t'))
@@ -87,6 +88,11 @@ for i in range(len(angleList)-1):
 y6 = []
 for i in range(len(y5) - 1):
     y6.append(calcAcceleration(y5[i+1], y5[i], timeList[i+1], timeList[i]))
+
+filtangle = spicy.medfilt(angleList)
+filtvelocity = spicy.medfilt(y5)
+filtacceleration = spicy.medfilt(y6)
+
 
 plt.plot(timeList, angleList, color = 'green')
 plt.title('Position as a function of time', fontsize = 14)
@@ -109,11 +115,31 @@ plt.ylabel('acceleration', fontsize = 12)
 plt.grid()
 plt.show()
 
-plt.plot(timeList, angleList, color = 'green', label = 'position')
-plt.plot(timeList[1:], y5, color = 'red', label = 'velocity')
-plt.plot(timeList[2:], y6, color = 'blue', label = 'acceleration')
-plt.title('All together!')
+
+plt.plot(timeList, filtangle, color = 'green')
+plt.title('Filtered Position as a function of time', fontsize = 14)
 plt.xlabel('time', fontsize = 12)
-plt.legend(loc = 2, fontsize = 12)
+plt.ylabel('position', fontsize = 12)
 plt.grid()
 plt.show()
+
+plt.plot(timeList[1:], filtvelocity, color = 'red')
+plt.title('Filtered Velocity as a function of time', fontsize = 14)
+plt.xlabel('time', fontsize = 12)
+plt.ylabel('velocity', fontsize = 12)
+plt.grid()
+plt.show()
+
+plt.plot(timeList[2:], filtacceleration, color = 'blue')
+plt.title('Filtered Acceleration as a function of time', fontsize = 14)
+plt.xlabel('time', fontsize = 12)
+plt.ylabel('acceleration', fontsize = 12)
+plt.grid()
+plt.show()
+
+peaksList = spicy.find_peaks(filtangle)
+print(peaksList)
+timepeaks = []
+for i in peaksList:
+    timepeaks.append(timelist[i])
+print(timepeaks)
