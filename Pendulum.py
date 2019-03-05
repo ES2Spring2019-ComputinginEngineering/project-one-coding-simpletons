@@ -141,5 +141,5 @@ peaksList = spicy.find_peaks(filtangle)
 print(peaksList)
 timepeaks = []
 for i in peaksList:
-    timepeaks.append(timelist[i])
+    timepeaks.append(timeList[i])
 print(timepeaks)
