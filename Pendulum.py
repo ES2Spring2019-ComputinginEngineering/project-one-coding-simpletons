@@ -69,7 +69,7 @@ plt.grid()
 plt.show()
 
 #Data collection
-fin = open('data_collection453.txt')
+fin = open('data_collection460.txt')
 dataList = []
 for line in fin:
     dataList.append(line.split('\t'))
