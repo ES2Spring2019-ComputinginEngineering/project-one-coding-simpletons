@@ -16,11 +16,11 @@ def angular_velocity(time, initial_position, angular_velocity):
 def angular_acceleration(time, initial_position, angular_velocity):
     return -(w**2) * initial_position * m.cos(angular_velocity * time)
 
-def calcVelocity(final_position, initial_position, time):
-    return (final_position - initial_position)/time
+def calcVelocity(final_position, initial_position, final_time, initial_time):
+    return (final_position - initial_position)/(final_time - initial_time)
 
-def calcAcceleration(final_velocity, initial_velocity, time):
-    return (final_velocity - initial_velocity)/time
+def calcAcceleration(final_velocity, initial_velocity, final_time, initial_time):
+    return (final_velocity - initial_velocity)/(final_time - initial_time)
 
 #initial conditions:
 position = [(m.pi)/4]
@@ -69,50 +69,51 @@ plt.grid()
 plt.show()
 
 #Data collection
-fin = open('data_collection copy.txt')
+fin = open('data_collection453.txt')
 dataList = []
-for angle in fin:
-    dataList.append(float(angle.strip()))
+for line in fin:
+    dataList.append(line.split('\t'))
+angleList = []
+timeList = []
+for dataPoint in dataList:
+    angleList.append(float(dataPoint[0]))
+    timeList.append(int(dataPoint[1].strip()))
 fin.close()
-dt = 0.01
-y4 = dataList
 
 y5 = []
-for i in range(len(dataList) - 2):
-    y5.append(calcVelocity(dataList[i+1], dataList[i], dt))
+for i in range(len(angleList)-1):
+    y5.append(calcVelocity(angleList[i+1], angleList[i], timeList[i+1], timeList[i]))
     
 y6 = []
-for i in range(len(y5) - 2):
-    y6.append(calcAcceleration(y5[i+1], y5[i], dt))
-    
-plt.plot(x, y4, color = 'green')
+for i in range(len(y5) - 1):
+    y6.append(calcAcceleration(y5[i+1], y5[i], timeList[i+1], timeList[i]))
+
+plt.plot(timeList, angleList, color = 'green')
 plt.title('Position as a function of time', fontsize = 14)
 plt.xlabel('time', fontsize = 12)
 plt.ylabel('position', fontsize = 12)
 plt.grid()
 plt.show()
 
-'''
-plt.plot(x, y5, color = 'red')
+plt.plot(timeList[1:], y5, color = 'red')
 plt.title('Velocity as a function of time', fontsize = 14)
 plt.xlabel('time', fontsize = 12)
 plt.ylabel('velocity', fontsize = 12)
 plt.grid()
 plt.show()
 
-plt.plot(x, y6, color = 'blue')
+plt.plot(timeList[2:], y6, color = 'blue')
 plt.title('Acceleration as a function of time', fontsize = 14)
 plt.xlabel('time', fontsize = 12)
 plt.ylabel('acceleration', fontsize = 12)
 plt.grid()
 plt.show()
 
-plt.plot(x, y4, color = 'green', label = 'position')
-plt.plot(x, y5, color = 'red', label = 'velocity')
-plt.plot(x, y6, color = 'blue', label = 'acceleration')
+plt.plot(timeList, angleList, color = 'green', label = 'position')
+plt.plot(timeList[1:], y5, color = 'red', label = 'velocity')
+plt.plot(timeList[2:], y6, color = 'blue', label = 'acceleration')
 plt.title('All together!')
 plt.xlabel('time', fontsize = 12)
 plt.legend(loc = 2, fontsize = 12)
 plt.grid()
 plt.show()
-'''
