@@ -16,13 +16,7 @@ def angular_velocity(time, initial_position, angular_velocity):
     
 def angular_acceleration(time, initial_position, angular_velocity):
     return -(w**2) * initial_position * m.cos(angular_velocity * time)
-
-def calcVelocity(final_position, initial_position, final_time, initial_time):
-    return (final_position - initial_position)/(final_time - initial_time)
-
-def calcAcceleration(final_velocity, initial_velocity, final_time, initial_time):
-    return (final_velocity - initial_velocity)/(final_time - initial_time)
-    
+   
 #initial conditions:
 position = [(m.pi)/4]
 velocity = [0]
@@ -38,7 +32,7 @@ for t in x:
     y1.append(angular_displacement(t, position[0], w))
     y2.append(angular_velocity(t, position[0], w))
     y3.append(angular_acceleration(t, position[0], w))
-    
+'''
 plt.plot(x, y1, color = 'magenta')
 plt.title('Position as a function of time', fontsize = 14)
 plt.xlabel('time', fontsize = 12)
@@ -68,9 +62,9 @@ plt.xlabel('time', fontsize = 12)
 plt.legend(loc = 2, fontsize = 12)
 plt.grid()
 plt.show()
-
+'''
 #Data collection
-fin = open('data_collection141.txt')
+fin = open('data_collection483.txt')
 dataList = []
 for line in fin:
     dataList.append(line.split('\t'))
@@ -81,17 +75,8 @@ for dataPoint in dataList:
     timeList.append(int(dataPoint[1].strip()))
 fin.close()
 
-y5 = []
-for i in range(len(angleList)-1):
-    y5.append(calcVelocity(angleList[i+1], angleList[i], timeList[i+1], timeList[i]))
-    
-y6 = []
-for i in range(len(y5) - 1):
-    y6.append(calcAcceleration(y5[i+1], y5[i], timeList[i+1], timeList[i]))
 
 filtangle = spicy.medfilt(angleList)
-filtvelocity = spicy.medfilt(y5)
-filtacceleration = spicy.medfilt(y6)
 
 
 plt.plot(timeList, angleList, color = 'green')
@@ -101,51 +86,17 @@ plt.ylabel('position', fontsize = 12)
 plt.grid()
 plt.show()
 
-plt.plot(timeList[1:], y5, color = 'red')
-plt.title('Velocity as a function of time', fontsize = 14)
-plt.xlabel('time', fontsize = 12)
-plt.ylabel('velocity', fontsize = 12)
-plt.grid()
-plt.show()
 
-plt.plot(timeList[2:], y6, color = 'blue')
-plt.title('Acceleration as a function of time', fontsize = 14)
-plt.xlabel('time', fontsize = 12)
-plt.ylabel('acceleration', fontsize = 12)
-plt.grid()
-plt.show()
-
-
-plt.plot(timeList, filtangle, color = 'green')
+plt.plot(timeList[50:], filtangle[50:], color = 'green')
 plt.title('Filtered Position as a function of time', fontsize = 14)
 plt.xlabel('time', fontsize = 12)
 plt.ylabel('position', fontsize = 12)
 plt.grid()
 plt.show()
 
-plt.plot(timeList[1:], filtvelocity, color = 'red')
-plt.title('Filtered Velocity as a function of time', fontsize = 14)
-plt.xlabel('time', fontsize = 12)
-plt.ylabel('velocity', fontsize = 12)
-plt.grid()
-plt.show()
 
-plt.plot(timeList[2:], filtacceleration, color = 'blue')
-plt.title('Filtered Acceleration as a function of time', fontsize = 14)
-plt.xlabel('time', fontsize = 12)
-plt.ylabel('acceleration', fontsize = 12)
-plt.grid()
-plt.show()
-
-print(angleList)
-print(filtangle)
-'''filtedangle = []
-for i in filtangle:
-    filtedangle.append(filtangle[i])
-print(filtedangle)'''
-peaksList = int(spicy.find_peaks(filtangle))
-print(peaksList)
-timepeaks = []
-for i in peaksList: # peaks list is i values, but those i values in timeList isn't an int
-    timepeaks.append(timeList[i])
-print(timepeaks)
+peaksList = spicy.find_peaks(filtangle[70:255])
+print(peaksList[0]+70)
+timeArray = np.array(timeList)
+Ppoints = timeArray[peaksList[0]+70]
+print(Ppoints)

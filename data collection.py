@@ -18,7 +18,7 @@ while(count <= 500):
     y = accelerometer.get_y()
     angle = tilt(y, x)
     fout.write(str(angle) + '\t')
-    sleep(20)
+    sleep(10)
     if((count % 100 == 0) and (switch == 0)):
         display.show(Image.TRIANGLE)
         switch = 1
