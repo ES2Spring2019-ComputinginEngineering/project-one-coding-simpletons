@@ -4,9 +4,6 @@ import math as m
 import random as rand
 from microbit import *
 
-def tilt(yAcc, xAcc):
-    xdegrees = m.atan2(yAcc, xAcc)
-    return xdegrees
 fileName = 'data_collection' + str(rand.randint(0,999)) + '.txt'
 fout = open(fileName, 'w')
 count = 0
@@ -16,8 +13,7 @@ while(count <= 500):
     time0 = running_time()
     x = accelerometer.get_x()
     y = accelerometer.get_y()
-    angle = tilt(y, x)
-    fout.write(str(angle) + '\t')
+    fout.write(str(x,y) + '\t')
     sleep(10)
     if((count % 100 == 0) and (switch == 0)):
         display.show(Image.TRIANGLE)

@@ -16,6 +16,9 @@ def angular_velocity(time, initial_position, angular_velocity):
     
 def angular_acceleration(time, initial_position, angular_velocity):
     return -(w**2) * initial_position * m.cos(angular_velocity * time)
+def tilt(yAcc, xAcc):
+    xdegrees = m.atan2(yAcc, xAcc)
+    return xdegrees
    
 #initial conditions:
 position = [(m.pi)/4]
