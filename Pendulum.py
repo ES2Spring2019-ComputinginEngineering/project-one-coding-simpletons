@@ -137,9 +137,15 @@ plt.ylabel('acceleration', fontsize = 12)
 plt.grid()
 plt.show()
 
-peaksList = spicy.find_peaks(filtangle)
+print(angleList)
+print(filtangle)
+'''filtedangle = []
+for i in filtangle:
+    filtedangle.append(filtangle[i])
+print(filtedangle)'''
+peaksList = int(spicy.find_peaks(filtangle))
 print(peaksList)
 timepeaks = []
-for i in peaksList:
+for i in peaksList: # peaks list is i values, but those i values in timeList isn't an int
     timepeaks.append(timeList[i])
 print(timepeaks)
