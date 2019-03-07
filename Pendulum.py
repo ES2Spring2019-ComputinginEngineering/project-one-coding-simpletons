@@ -71,4 +71,5 @@ def T(Length, array_Files):
     for i in range(len(array_Files)):
         PeriodT = data_collection(array_Files[i])
         avg_dt.append(PeriodT)
-    return avg_dt
+    total_avg_dt = np.average(avg_dt)
+    return total_avg_dt
