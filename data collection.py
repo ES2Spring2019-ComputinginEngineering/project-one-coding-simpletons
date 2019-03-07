@@ -13,7 +13,7 @@ while(count <= 500):
     time0 = running_time()
     x = accelerometer.get_x()
     y = accelerometer.get_y()
-    fout.write(str(x,y) + '\t')
+    fout.write(str(x) + '\t' + str(y) + '\t')
     sleep(10)
     if((count % 100 == 0) and (switch == 0)):
         display.show(Image.TRIANGLE)
