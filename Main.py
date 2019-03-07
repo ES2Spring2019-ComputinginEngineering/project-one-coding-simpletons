@@ -25,24 +25,24 @@ Files4 = ['L41.txt', 'L42.txt', 'L43.txt', 'L44.txt', 'L45.txt']
 Files5 = ['L51.txt', 'L52.txt', 'L53.txt', 'L54.txt', 'L55.txt']
 
 simList = [sim(L1), sim(L2), sim(L3), sim(L4), sim(L5)]
-'''
+
 PeriodList = [T(L1, Files1), T(L2, Files2), T(L3, Files3), T(L4, Files4), T(L5, Files5)]
-'''
+
 
 plt.plot(Lengths, simList, color = 'magenta', label = 'Simulation')
-#plt.plot(Lengths, PeriodList, color = 'cyan', label = 'Real World')
+plt.plot(Lengths, PeriodList, color = 'cyan', label = 'Real World')
 plt.title('All together!')
-plt.xlabel('Length', fontsize = 12)
-plt.ylabel('Period', fontsize = 12)
+plt.xlabel('Length (m)', fontsize = 12)
+plt.ylabel('Period (s)', fontsize = 12)
 plt.legend(loc = 2, fontsize = 12)
 plt.grid()
 plt.show()
 
 plt.plot(Lengths, simList, color = 'magenta', label = 'Simulation')
-#plt.plot(Lengths, PeriodList, color = 'cyan', label = 'Real World')
-plt.title('All together!')
-plt.xlabel('Length', fontsize = 12)
-plt.ylabel('Period', fontsize = 12)
+plt.plot(Lengths, PeriodList, color = 'cyan', label = 'Real World')
+plt.title('All together! A Logarithmic Relationship')
+plt.xlabel('Length (m)', fontsize = 12)
+plt.ylabel('Period (s)', fontsize = 12)
 plt.legend(loc = 2, fontsize = 12)
 plt.xscale('log')
 plt.yscale('log')

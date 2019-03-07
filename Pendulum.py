@@ -23,37 +23,34 @@ def data_collection(filename):
         xAcc.append(float(dataPoint[0]))
         yAcc.append(float(dataPoint[1]))
         angleList.append(tilt(float(dataPoint[1]), float(dataPoint[0])))
-        timeList.append(int(dataPoint[2].strip()))
+        timeList.append(int(dataPoint[2].strip())/1000)
     fin.close()
-
 
     filtangle = spicy.medfilt(angleList)
 
-
     plt.plot(timeList[50:], xAcc[50:], color = 'orange')
     plt.plot(timeList[50:], yAcc[50:], color = 'red')
-    plt.title('Raw Acceleration as a function of time', fontsize = 14)
-    plt.xlabel('time', fontsize = 12)
-    plt.ylabel('acceleration', fontsize = 12)
+    plt.title('Raw Acceleration as a Function of Time', fontsize = 14)
+    plt.xlabel('Time (s)', fontsize = 12)
+    plt.ylabel('Acceleration (g)', fontsize = 12)
     plt.grid()
     plt.show()
     
     
     plt.plot(timeList, angleList, color = 'green')
-    plt.title('Position as a function of time', fontsize = 14)
-    plt.xlabel('time', fontsize = 12)
-    plt.ylabel('position', fontsize = 12)
+    plt.title('Position as a Function of Time', fontsize = 14)
+    plt.xlabel('Time (s)', fontsize = 12)
+    plt.ylabel('Position (radians)', fontsize = 12)
     plt.grid()
     plt.show()
     
     
     plt.plot(timeList[50:], filtangle[50:], color = 'blue')
-    plt.title('Filtered Position as a function of time', fontsize = 14)
-    plt.xlabel('time', fontsize = 12)
-    plt.ylabel('position', fontsize = 12)
+    plt.title('Filtered Position as a Function of Time', fontsize = 14)
+    plt.xlabel('Time (s)', fontsize = 12)
+    plt.ylabel('Position (radians)', fontsize = 12)
     plt.grid()
     plt.show()
-    
     
     peaksList = spicy.find_peaks(filtangle[70:255])
     timeArray = np.array(timeList)
@@ -71,5 +68,6 @@ def T(Length, array_Files):
     for i in range(len(array_Files)):
         PeriodT = data_collection(array_Files[i])
         avg_dt.append(PeriodT)
-    total_avg_dt = np.average(avg_dt)
+    total_avg_dt_ms = np.average(avg_dt)
+    total_avg_dt = (total_avg_dt_ms)
     return total_avg_dt
