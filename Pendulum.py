@@ -49,19 +49,25 @@ def data_collection(filename):
         xAcc.append(float(dataPoint[0]))
         yAcc.append(float(dataPoint[1]))
         angleList.append(tilt(float(dataPoint[1]), float(dataPoint[0])))
-        timeList.append(int(dataPoint[2].strip())/1000)
+        timeList.append(int(dataPoint[2].strip()))
         
     fin.close()
 
     #generates three new arrays with filtered (smoothed) angle data,
     #x-acceleration data, and y-acceleration. 
-    filtangle = spicy.medfilt(angleList)
+    filtangle = spicy.medfilt(angleList, 7)
     filtxAcc = spicy.medfilt(xAcc)
     filtyAcc = spicy.medfilt(yAcc)
+    
+    #peaksList is an array of indices at which peaks exist in filtangle
+    peaksList = spicy.find_peaks(filtangle[70:], height = 0)
+    
+    #creates an array of time values using seconds
+    timeArray = np.array(timeList) / 1000
 
     #Both x- and y-acceleration as a function of time for real data
-    plt.plot(timeList[50:], xAcc[50:], color = 'orange', label = 'X-Acceleration')
-    plt.plot(timeList[50:], yAcc[50:], color = 'red', label = 'Y-Acceleration')
+    plt.plot(timeArray[50:], xAcc[50:], color = 'orange', label = 'X-Acceleration')
+    plt.plot(timeArray[50:], yAcc[50:], color = 'red', label = 'Y-Acceleration')
     plt.title('Raw Acceleration as a Function of Time', fontsize = 14)
     plt.xlabel('Time (s)', fontsize = 12)
     plt.ylabel('Acceleration (g)', fontsize = 12)
@@ -70,8 +76,8 @@ def data_collection(filename):
     plt.show()
         
     #Both x- and y- filtered acceleration as a function of time for real data
-    plt.plot(timeList[50:], filtxAcc[50:], color = 'orange', label = 'X-Acceleration')
-    plt.plot(timeList[50:], filtyAcc[50:], color = 'red', label = 'Y-Acceleration')
+    plt.plot(timeArray[50:], filtxAcc[50:], color = 'orange', label = 'X-Acceleration')
+    plt.plot(timeArray[50:], filtyAcc[50:], color = 'red', label = 'Y-Acceleration')
     plt.title('Filtered Acceleration as a Function of Time', fontsize = 14)
     plt.xlabel('Time (s)', fontsize = 12)
     plt.ylabel('Acceleration (g)', fontsize = 12)
@@ -80,7 +86,7 @@ def data_collection(filename):
     plt.show()
     
     #Angular position as a function of time for real data
-    plt.plot(timeList, angleList, color = 'green')
+    plt.plot(timeArray, angleList, color = 'green')
     plt.title('Angular Position as a Function of Time', fontsize = 14)
     plt.xlabel('Time (s)', fontsize = 12)
     plt.ylabel('Angular Position (radians)', fontsize = 12)
@@ -88,17 +94,13 @@ def data_collection(filename):
     plt.show()
     
     #Filtered angular position as a function of time for real data
-    plt.plot(timeList[50:], filtangle[50:], color = 'blue')
+    plt.plot(timeArray[50:], filtangle[50:], color = 'blue')
     plt.title('Filtered Angular Position as a Function of Time', fontsize = 14)
     plt.xlabel('Time (s)', fontsize = 12)
     plt.ylabel('Angular Position (radians)', fontsize = 12)
     plt.grid()
     plt.show()
     
-    #peaksList is an array of indices at which peaks exist in filtangle
-    peaksList = spicy.find_peaks(filtangle[70:255])
-    
-    timeArray = np.array(timeList)
     
     #PeriodPoints creates an array of time values at which there are peaks
     PeriodPoints = timeArray[peaksList[0]+70]
@@ -127,6 +129,6 @@ def T(array_Files):
         PeriodT = data_collection(array_Files[i])
         avg_dts.append(PeriodT)
         
-    total_avg_dt = np.average(avg_dts)
+    total_avg_dt = (np.average(avg_dts))
     
     return total_avg_dt

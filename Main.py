@@ -27,7 +27,7 @@ simList = [sim(L1), sim(L2), sim(L3), sim(L4), sim(L5)]
 #each pendulum length
 #By calling T each time within the list, the graphs of every trial for each
 #pendulum length are plotted. 
-PeriodList = [T(Files1), T(Files2), T(Files3), T(Files4), T(Files5)]
+PeriodList = [T(Files5), T(Files4), T(Files3), T(Files2), T(Files1)]
 
 #Simulated and real periods plotted versus pendulum lengths (regular data)
 plt.plot(Lengths, simList, color = 'magenta', label = 'Simulation')
