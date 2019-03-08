@@ -12,4 +12,6 @@ From both the simulated and real data, we obtained oscillation period values whi
 
 - Simulation: (Spyder) Includes 1 function which plots the simulated data for a given pendulum length and calculates the peirod. 
 
-- data collection: (Mu.editor) Records data from the microbit and generates a file with acceleration and time values. 
+- data collection: (Mu.editor) Records data from the microbit and generates a file with acceleration and time values.
+
+- L text files: Each L file is a data file with acceleration and time values from the microbit. They are named in the format L(group number, ie. 1st length, 2nd length, etc.)(trial number, ie. 1st trial, 2nd trial, etc.).
