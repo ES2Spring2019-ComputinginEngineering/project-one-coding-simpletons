@@ -27,12 +27,24 @@ def data_collection(filename):
     fin.close()
 
     filtangle = spicy.medfilt(angleList)
+    filtxAcc = spicy.medfilt(xAcc)
+    filtyAcc = spicy.medfilt(yAcc)
 
-    plt.plot(timeList[50:], xAcc[50:], color = 'orange')
-    plt.plot(timeList[50:], yAcc[50:], color = 'red')
+    plt.plot(timeList[50:], xAcc[50:], color = 'orange', label = 'X-Acceleration')
+    plt.plot(timeList[50:], yAcc[50:], color = 'red', label = 'Y-Acceleration')
     plt.title('Raw Acceleration as a Function of Time', fontsize = 14)
     plt.xlabel('Time (s)', fontsize = 12)
     plt.ylabel('Acceleration (g)', fontsize = 12)
+    plt.legend(loc = 7, fontsize = 12)
+    plt.grid()
+    plt.show()
+        
+    plt.plot(timeList[50:], filtxAcc[50:], color = 'orange', label = 'X-Acceleration')
+    plt.plot(timeList[50:], filtyAcc[50:], color = 'red', label = 'Y-Acceleration')
+    plt.title('Filtered Acceleration as a Function of Time', fontsize = 14)
+    plt.xlabel('Time (s)', fontsize = 12)
+    plt.ylabel('Acceleration (g)', fontsize = 12)
+    plt.legend(loc = 7, fontsize = 12)
     plt.grid()
     plt.show()
     
