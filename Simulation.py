@@ -46,7 +46,7 @@ def sim(L):
     #angular position as a function of time for simulated data
     plt.plot(time, posList, color = 'magenta')
     plt.title('Angular Position as a function of time', fontsize = 14)
-    plt.xlabel('Time (ms)', fontsize = 12)
+    plt.xlabel('Time (s)', fontsize = 12)
     plt.ylabel('Angular Position (radians)', fontsize = 12)
     plt.grid()
     plt.show()
@@ -54,7 +54,7 @@ def sim(L):
     #angular velocity as a function of time for simulated data
     plt.plot(time, velList, color = 'cyan')
     plt.title('Angular Velocity as a function of time', fontsize = 14)
-    plt.xlabel('Time (ms)', fontsize = 12)
+    plt.xlabel('Time (s)', fontsize = 12)
     plt.ylabel('Angular Velocity (rads/s)', fontsize = 12)
     plt.grid()
     plt.show()
@@ -62,7 +62,7 @@ def sim(L):
     #angular acceleration as a function of time for simulated data
     plt.plot(time, accList, color = 'orange')
     plt.title('Angular Acceleration as a function of time', fontsize = 14)
-    plt.xlabel('Time (ms)', fontsize = 12)
+    plt.xlabel('Time (s)', fontsize = 12)
     plt.ylabel('Angular Acceleration (rads/s^2)', fontsize = 12)
     plt.grid()
     plt.show()
@@ -72,7 +72,7 @@ def sim(L):
     plt.plot(time, velList, color = 'cyan', label = 'velocity')
     plt.plot(time, accList, color = 'orange', label = 'acceleration')
     plt.title('All together!')
-    plt.xlabel('Time (ms)', fontsize = 12)
+    plt.xlabel('Time (s)', fontsize = 12)
     plt.legend(loc = 2, fontsize = 12)
     plt.grid()
     plt.show()

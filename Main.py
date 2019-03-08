@@ -12,12 +12,12 @@ L4 = .29
 L5 = .17
 Lengths = [L1, L2, L3, L4, L5]
 
-#Each list of files below includes 5 trials for each pendulum length
-Files1 = ['L11.txt', 'L12.txt', 'L13.txt', 'L14.txt', 'L15.txt']
-Files2 = ['L21.txt', 'L22.txt', 'L23.txt', 'L24.txt', 'L25.txt']
-Files3 = ['L31.txt', 'L32.txt', 'L33.txt', 'L34.txt', 'L35.txt']
-Files4 = ['L41.txt', 'L42.txt', 'L43.txt', 'L44.txt', 'L45.txt']
-Files5 = ['L51.txt', 'L52.txt', 'L53.txt', 'L54.txt', 'L55.txt']
+#Each list of files below includes 5 trials for each pendulum length.
+Files1 = ['L11.txt', 'L12.txt', 'L13.txt', 'L14.txt', 'L15.txt']  # Matches with L5
+Files2 = ['L21.txt', 'L22.txt', 'L23.txt', 'L24.txt', 'L25.txt']  # Matches with L4
+Files3 = ['L31.txt', 'L32.txt', 'L33.txt', 'L34.txt', 'L35.txt']  # Matches with L3
+Files4 = ['L41.txt', 'L42.txt', 'L43.txt', 'L44.txt', 'L45.txt']  # Matches with L2
+Files5 = ['L51.txt', 'L52.txt', 'L53.txt', 'L54.txt', 'L55.txt']  # Matches with L1
 
 #simList is a list of pendulum periods at different lengths for our simulated data.
 #By calling sim each time within the list, the graphs for each simulation are plotted. 
